@@ -14,7 +14,7 @@ import {
 import {
   IconedInputFieldProps,
   IconedInputField,
-} from "@/app/components/iconed-input-field";
+} from "@/components/iconed-input-field";
 import StyledButton from "@/components/styled-button";
 import ErrorText from "@/components/error-text";
 
