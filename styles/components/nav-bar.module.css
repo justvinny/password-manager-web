@@ -7,4 +7,43 @@
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+  padding-bottom: 16px;
+  padding-right: 16px;
+}
+
+.navItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 72px;
+  height: 72px;
+  padding: 24px;
+  margin-left: 8px;
+  text-align: center;
+  font-size: 10px;
+  background-color: transparent;
+  border: 3px solid #3498db;
+  border-radius: 50%;
+  position: relative;
+  animation: float 2s ease-in-out infinite;
+  cursor: pointer;
+}
+
+.navItemActive {
+  background-color: #3498db;
+}
+
+.navItem:hover {
+  background-color: #3498db;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
 }
