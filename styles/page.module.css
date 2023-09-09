@@ -1,9 +1,21 @@
 .main {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   min-height: 100vh;
   width: 100vw;
-  padding-bottom: 7rem;
+  padding: 16px;
+}
+
+.mb16 {
+  margin-bottom: 16px;
+}
+
+.mr8 {
+  margin-right: 8px;
+}
+
+.themeColor {
+  color: #3498db;
 }
