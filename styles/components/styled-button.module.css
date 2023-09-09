@@ -1,0 +1,23 @@
+.button {
+  width: 90vw;
+  max-width: 350px;
+  padding: 8px;
+  background-color: #3498db;
+  border: none;
+  font-size: 24px;
+}
+
+.buttonDisabled {
+  width: 90vw;
+  max-width: 350px;
+  padding: 8px;
+  background-color: #3498db;
+  border: none;
+  font-size: 24px;
+  filter: brightness(0.5);
+}
+
+.button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
