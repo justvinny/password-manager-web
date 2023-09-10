@@ -106,13 +106,14 @@ export default function SaveAccount() {
     // TODO once PWA Storage is setup
   };
 
-  const areInputsNotEmpty = () =>
-    Array.from(inputStateMap.values()).every((item) => item.length > 0);
-
-  const doPasswordsMatch = () =>
-    inputStateMap.get(PASSWORD_KEY) === inputStateMap.get(REPEAT_PASSWORD_KEY);
-
   useEffect(() => {
+    const areInputsNotEmpty = () =>
+      Array.from(inputStateMap.values()).every((item) => item.length > 0);
+
+    const doPasswordsMatch = () =>
+      inputStateMap.get(PASSWORD_KEY) ===
+      inputStateMap.get(REPEAT_PASSWORD_KEY);
+
     if (!areInputsNotEmpty()) {
       setErrorText(ERROR_EMPTY);
       setIsValidInput(false);
