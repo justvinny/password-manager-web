@@ -8,6 +8,8 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Password Manager",
   description: "Password Manager by Vinson Beduya",
+  manifest: "/manifest.json",
+  icons: { apple: "/icon.png", icon: "/icon.png" },
 };
 
 export default function RootLayout({
