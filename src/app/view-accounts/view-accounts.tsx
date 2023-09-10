@@ -4,46 +4,35 @@ import mainStyles from "@/styles/page.module.css";
 import styles from "@/styles/view-accounts/view-accsounts.module.css";
 import { useEffect, useState } from "react";
 import AccountItem from "./account-item";
-
-interface Account {
-  platform: string;
-  username: string;
-  password: string;
-}
-
-const generateMockAccounts = (nAccounts: number) => {
-  // TODO remove once PWA Storage is setup
-  const accountList: Array<Account> = [];
-
-  for (let i = 0; i < nAccounts; i++) {
-    accountList.push({
-      platform: `Platform${i}`,
-      username: `User${i}`,
-      password: `Password${i}`,
-    });
-  }
-  return accountList;
-};
+import { Account, deleteAccount, getAllAccounts } from "@/data/db";
 
 export default function ViewAccounts() {
   const [accountList, setAccountList] = useState<Array<Account>>([]);
 
+  const handleGetUsers = async () => {
+    setAccountList(await getAllAccounts());
+  };
+
   useEffect(() => {
-    // TODO grab from PWA Storage once it is setup.
-    setAccountList(generateMockAccounts(103));
+    handleGetUsers();
   }, []);
 
   const handleCopy = (password: string) => () => {
     navigator.clipboard.writeText(password);
   };
 
-  const handleDelete = (account: Account) => () => {
-    var newAccountList = accountList.filter(
-      (item) =>
-        item.platform !== account.platform && item.username !== account.username
-    );
-    // TODO persist delete once PWA storage is setup.
-    setAccountList(newAccountList);
+  const handleDelete = (account: Account) => async () => {
+    const isDeleted = await deleteAccount(account.id);
+
+    if (isDeleted) {
+      var newAccountList = accountList.filter(
+        (item) =>
+          item.platform !== account.platform &&
+          item.username !== account.username
+      );
+
+      setAccountList(newAccountList);
+    }
   };
 
   return (

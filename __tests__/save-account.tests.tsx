@@ -1,8 +1,13 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import SaveAccount from "@/app/save-account/page";
+import { initDb } from "@/data/db";
 
 describe("SaveAccount Component", () => {
+  beforeAll(async () => {
+    await initDb();
+  });
+
   it("renders without errors", () => {
     render(<SaveAccount />);
   });

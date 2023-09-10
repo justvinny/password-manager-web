@@ -1,7 +1,11 @@
+"use client";
+
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import NavBar from "@/components/nav-bar";
+import { initDb } from "@/data/db";
+import { useEffect, useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,11 +21,28 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [isDbReady, setIsDbReady] = useState(false);
+
+  const handleInitDB = async () => {
+    const status = await initDb();
+    setIsDbReady(status);
+  };
+
+  useEffect(() => {
+    handleInitDB();
+  }, []);
+
   return (
     <html lang="en">
       <body className={inter.className}>
-        {children}
-        <NavBar />
+        {isDbReady ? (
+          <>
+            {children}
+            <NavBar />
+          </>
+        ) : (
+          <></>
+        )}
       </body>
     </html>
   );

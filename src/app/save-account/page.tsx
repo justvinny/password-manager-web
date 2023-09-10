@@ -17,14 +17,24 @@ import {
 } from "@/components/iconed-input-field";
 import StyledButton from "@/components/styled-button";
 import ErrorText from "@/components/error-text";
+import { addAccount } from "@/data/db";
 
 const ERROR_PASSWORDS = "Passwords do not match.";
 const ERROR_EMPTY = "All fields must not be empty.";
+const ERROR_ACCOUNT_EXISTS = (platform: string, username: string) =>
+  `Account for ${platform} with ${username} already exists`;
 
 const PLATFORM_KEY = "Platform";
 const USERNAME_KEY = "Username";
 const PASSWORD_KEY = "Password";
 const REPEAT_PASSWORD_KEY = "Repeat Password";
+
+const emptyStateMap = new Map<string, string>([
+  [PLATFORM_KEY, ""],
+  [USERNAME_KEY, ""],
+  [PASSWORD_KEY, ""],
+  [REPEAT_PASSWORD_KEY, ""],
+]);
 
 const inputList: Array<IconedInputFieldProps> = [
   {
@@ -92,18 +102,28 @@ const renderInputStateMap = (
 export default function SaveAccount() {
   const [errorText, setErrorText] = useState("");
   const [isValidInput, setIsValidInput] = useState(false);
-  const [inputStateMap, setInputStateMap] = useState<Map<string, string>>(
-    new Map<string, string>([
-      [PLATFORM_KEY, ""],
-      [USERNAME_KEY, ""],
-      [PASSWORD_KEY, ""],
-      [REPEAT_PASSWORD_KEY, ""],
-    ])
-  );
+  const [inputStateMap, setInputStateMap] =
+    useState<Map<string, string>>(emptyStateMap);
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    // TODO once PWA Storage is setup
+
+    const platform = inputStateMap.get(PLATFORM_KEY) ?? "";
+    const username = inputStateMap.get(USERNAME_KEY) ?? "";
+    const password = inputStateMap.get(PASSWORD_KEY) ?? "";
+    const account = {
+      id: `${platform}-${username}`,
+      platform: platform,
+      username: username,
+      password: password,
+    };
+
+    if (await addAccount(account)) {
+      // TODO Add alert dialog to indicate success
+      setInputStateMap(emptyStateMap);
+    } else {
+      setErrorText(ERROR_ACCOUNT_EXISTS(platform, username));
+    }
   };
 
   useEffect(() => {

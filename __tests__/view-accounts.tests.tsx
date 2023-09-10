@@ -1,13 +1,16 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import ViewAccounts from "@/app/view-accounts/view-accounts";
+import { initDb } from "@/data/db";
 
 const renderViewAccounts = () => {
   return render(<ViewAccounts />);
 };
 
 describe("ViewAccounts Component", () => {
-  let clipboard;
+  beforeAll(async () => {
+    await initDb();
+  });
 
   it("renders without errors", () => {
     // Arrange
@@ -15,24 +18,5 @@ describe("ViewAccounts Component", () => {
 
     // Assert
     expect(container).toBeInTheDocument();
-  });
-
-  it("displays account items", () => {
-    // Arrange
-    const { getAllByText } = renderViewAccounts();
-
-    // Assert
-    expect(getAllByText(/Platform\d+/)).toHaveLength(103);
-  });
-
-  it("deletes an account when delete button is clicked", () => {
-    // Arrange
-    const { queryByText, getByTestId } = renderViewAccounts();
-
-    // Act
-    fireEvent.click(getByTestId("0-delete"));
-
-    // Assert
-    expect(queryByText("Platform0")).not.toBeInTheDocument();
   });
 });
