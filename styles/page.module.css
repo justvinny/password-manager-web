@@ -8,6 +8,10 @@
   padding: 16px;
 }
 
+.mb8 {
+  margin-bottom: 8px;
+}
+
 .mb16 {
   margin-bottom: 16px;
 }
@@ -16,6 +20,18 @@
   margin-right: 8px;
 }
 
+.mr16 {
+  margin-right: 16px;
+}
+
+.bottomNavPadding {
+  height: 80px;
+}
+
 .themeColor {
   color: #3498db;
+}
+
+.filler {
+  flex-grow: 1;
 }

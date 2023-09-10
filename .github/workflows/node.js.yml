@@ -28,4 +28,12 @@ jobs:
       - name: Test
         run: npm run test:ci
       - name: Lint
-        run: npm run lint
+        run: |
+          lint_output=$(npm run lint)  # Run next lint and capture the output
+          echo "$lint_output"  # Print lint output for debugging
+
+          # Check if lint_output contains "Error" or "Warning"
+          if echo "$lint_output" | grep -qE "(Error|Warning)"; then
+            echo "Linting failed due to errors or warnings"
+            exit 1
+          fi

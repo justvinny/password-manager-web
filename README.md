@@ -2,10 +2,10 @@ This is a Password Manager Progressive Web App (PWA). The goal is to create a fu
 
 ## Architecture
 
+- \_\_tests\_\_ - All tests live here.
 - src\app - All features live here.
 - components - All reusable React components live here.
 - styles - All CSS files live here.
-- tests - All tests live here.
 - utils - All utility classes live here.
 
 ## Running Locally

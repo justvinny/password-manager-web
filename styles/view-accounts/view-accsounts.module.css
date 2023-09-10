@@ -1,0 +1,33 @@
+.textOverflow {
+  max-width: 200px;
+  overflow-x: auto;
+}
+
+.accountContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 16px;
+  height: fit-content;
+  width: 300px;
+  border: 3px solid #3498db;
+  border-radius: 8px;
+}
+
+.accountListContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
