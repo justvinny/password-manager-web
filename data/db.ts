@@ -50,6 +50,10 @@ export const initDb = (): Promise<boolean> => {
 
 export const addAccount = (account: Account): Promise<boolean> => {
   return new Promise((resolve) => {
+    if (db) {
+      resolve(true);
+    }
+
     request = indexedDB.open(DB_NAME, version);
 
     request.onsuccess = () => {

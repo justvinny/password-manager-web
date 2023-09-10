@@ -18,6 +18,7 @@ import {
 import StyledButton from "@/components/styled-button";
 import ErrorText from "@/components/error-text";
 import { addAccount } from "@/data/db";
+import NavBar from "@/components/nav-bar";
 
 const ERROR_PASSWORDS = "Passwords do not match.";
 const ERROR_EMPTY = "All fields must not be empty.";
@@ -147,17 +148,20 @@ export default function SaveAccount() {
   }, [inputStateMap]);
 
   return (
-    <main className={styles.main}>
-      <h1 className={styles.mb16}>Save Account</h1>
-      <form onSubmit={handleSubmit}>
-        {renderInputStateMap(inputStateMap, setInputStateMap)}
-        <StyledButton
-          text="Save Account"
-          disabled={!isValidInput}
-          className={styles.mb16}
-        />
-        <ErrorText text={errorText} />
-      </form>
-    </main>
+    <>
+      <main className={styles.main}>
+        <h1 className={styles.mb16}>Save Account</h1>
+        <form onSubmit={handleSubmit}>
+          {renderInputStateMap(inputStateMap, setInputStateMap)}
+          <StyledButton
+            text="Save Account"
+            disabled={!isValidInput}
+            className={styles.mb16}
+          />
+          <ErrorText text={errorText} />
+        </form>
+      </main>
+      <NavBar />
+    </>
   );
 }

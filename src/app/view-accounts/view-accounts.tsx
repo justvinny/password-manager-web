@@ -4,18 +4,19 @@ import mainStyles from "@/styles/page.module.css";
 import styles from "@/styles/view-accounts/view-accsounts.module.css";
 import { useEffect, useState } from "react";
 import AccountItem from "./account-item";
-import { Account, deleteAccount, getAllAccounts } from "@/data/db";
+import { Account, deleteAccount, getAllAccounts, initDb } from "@/data/db";
 
 export default function ViewAccounts() {
-  const [accountList, setAccountList] = useState<Array<Account>>([]);
+  // DB State
+  const [isDbReady, setIsDbReady] = useState(false);
 
-  const handleGetUsers = async () => {
-    setAccountList(await getAllAccounts());
+  const handleInitDB = async () => {
+    const status = await initDb();
+    setIsDbReady(status);
   };
 
-  useEffect(() => {
-    handleGetUsers();
-  }, []);
+  // Other State
+  const [accountList, setAccountList] = useState<Array<Account>>([]);
 
   const handleCopy = (password: string) => () => {
     navigator.clipboard.writeText(password);
@@ -35,7 +36,19 @@ export default function ViewAccounts() {
     }
   };
 
-  return (
+  const handleGetUsers = async () => {
+    setAccountList(await getAllAccounts());
+  };
+
+  useEffect(() => {
+    if (isDbReady) {
+      handleGetUsers();
+    } else {
+      handleInitDB();
+    }
+  }, [isDbReady]);
+
+  return isDbReady ? (
     <>
       <h1 className={mainStyles.mb16}>View Accounts</h1>
       <div className={styles.accountListContainer}>
@@ -52,5 +65,7 @@ export default function ViewAccounts() {
       </div>
       <div className={mainStyles.bottomNavPadding} />
     </>
+  ) : (
+    <></>
   );
 }
